@@ -11,10 +11,19 @@ def clear():
         os.system("clear")
 
 def operation( k, data ):
-    dict_oper = {
-        1 : hem.chart_HbA1c( data )
-    }
-    dict_oper[ k ]
+    # dict_oper = {
+    #     1 : hem.chart_HbA1c( data ),
+    #     2 : hem.chart_relation( data )
+    # }
+    # dict_oper[ k ]
+
+    match k:
+        case 1:
+            hem.chart_HbA1c( data )
+        case 2:
+            hem.chart_relation( data )
+        case _:
+            print("Error en las llaves del match - case")
 
 
 
@@ -30,6 +39,7 @@ def main():
         clear()
         print("########## MENÚ ##########")
         print("1. % HbA1c en hombres y mujeres")
+        print("2. relacion bmi y A1c")
         print("0. salir")
         try:
             opc = int( input() )
@@ -38,7 +48,7 @@ def main():
             print("Se debe escribir un numero de la lista.")
             input("presione enter")
         else:
-            if opc >=1  and opc < 2:
+            if opc >=1  and opc < 3:
                 # print("Opción valida")
                 # input("presione enter")
                 operation( opc, list_dt )

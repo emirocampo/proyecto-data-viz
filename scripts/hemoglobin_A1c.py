@@ -5,6 +5,24 @@ def chart_pie(title, list_d, labels_d ):
     plt.pie(list_d, labels=labels_d, autopct="%0.1f %%")
     plt.show()
 
+def chart_scatter( title, list_x, list_y):
+    #grafica de dispersión
+    plt.title(title)
+    plt.scatter(list_x, list_y)
+    plt.show()
+
+def filter_gender(gender , list_d):
+    list_bmi = []
+    list_a1c = []
+    list_glucose = []
+    for row in list_d:
+        if row["gender"] == gender:
+            list_bmi.append( row["bmi"] )
+            list_a1c.append( row["HbA1c_level"] )
+            list_glucose.append( row["blood_glucose_level"] )
+        
+    return list_bmi, list_a1c, list_glucose
+
 def chart_HbA1c( data ):
     print("hola desde HbA1c!!!")
     # print( data[10] )
@@ -53,3 +71,16 @@ def chart_HbA1c( data ):
 
 
     input("presiona enter")
+
+def chart_relation( data ):
+    list_bmi_man, list_a1c_man, list_g_man = filter_gender("Male", data)
+    list_bmi_woman, list_a1c_woman, list_g_woman = filter_gender("Female", data)
+    list_bmi_oth, list_a1c_oth, list_g_other = filter_gender("Other", data)
+    
+    chart_scatter('Relacion bmi & A1c hombre', list_bmi_man, list_a1c_man)
+    chart_scatter('Relacion bmi & A1c mujer', list_bmi_woman, list_a1c_woman)
+    chart_scatter('Relacion bmi & A1c other', list_bmi_oth, list_a1c_oth)
+    
+    chart_scatter('Relacion bmi & glucosa hombre', list_bmi_man, list_g_man)
+    chart_scatter('Relacion bmi & glucosa mujer', list_bmi_woman, list_g_woman)
+    chart_scatter('Relacion bmi & glucosa other', list_bmi_oth, list_g_other)
